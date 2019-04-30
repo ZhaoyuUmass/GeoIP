@@ -12,8 +12,12 @@ import xml.etree.ElementTree as ET
 from urlparse import urlparse
 from dns.resolver import Resolver
 
-# To use this script, please enter your own Google Place API key here
+# To use this script, please enter your
 API_KEY = ''
+
+INTERVAL = 0.2
+RADIUS = 20000/111300.0 # earth radius in km
+SAMPLE = 100
 
 """
 Steps:
@@ -55,6 +59,10 @@ def get_zip_code(loc):
             zip_code = find_element(address_component, "long_name")
 
     return zip_code
+
+
+def get_web_server_info(ip):
+    pass
 
 
 def get_place_info(place_id):
@@ -279,10 +287,10 @@ def find_servers_nearby(loc):
         ip = random.choice(ips)
 
         # print place_id+"|"+website+"|"+zip_code+"|"+str(loc_coordinate)+"|"+ip
-    try:
-        print place_id , website , zip_code , loc_coordinate[0], loc_coordinate[1], ip
-    except:
-        print 'Some field does not exist'
+        try:
+            print place_id , website , zip_code , loc_coordinate[0], loc_coordinate[1], ip
+        except:
+            print 'Some field does not exist in the response'
 
     print 'Stat:', total, zip_code_not_match, no_website, no_ip
 
@@ -329,6 +337,7 @@ def main():
 
 
 if __name__ == "__main__":
+    # print get_random_loc('31.230390,121.473702')
     main()
 
 
